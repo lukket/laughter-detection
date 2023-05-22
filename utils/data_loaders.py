@@ -196,6 +196,23 @@ class SwitchBoardLaughterInferenceDataset(torch.utils.data.Dataset):
     def __getitem__(self, index):
         # return None for labels
         return (self.features[index:index+self.n_frames], None)
+    
+class RealTimeInferenceDataset(torch.utils.data.Dataset):
+    def __init__(self, audio_time_series: np.ndarray, feature_fn, sr=8000, n_frames=44):
+        self.n_frames = n_frames
+        self.feature_fn = feature_fn
+        self.sr = sr
+        self.n_frames = n_frames
+
+        self.y = audio_time_series
+        self.features = feature_fn(y=self.y,sr=self.sr)
+
+    def __len__(self):
+        return len(self.features)-self.n_frames
+
+    def __getitem__(self, index):
+        # return None for labels
+        return (self.features[index:index+self.n_frames], None)
 
 class AudioBatchDataset(torch.utils.data.Dataset):
     """ A class to load batches of audio files in Torch

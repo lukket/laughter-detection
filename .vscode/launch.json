@@ -1,0 +1,17 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Real Time",
+            "type": "python",
+            "request": "launch",
+            "program": "./real_time_laughter_detection.py",
+            "console": "integratedTerminal",
+            //"env": {"PYTHONASYNCIODEBUG": "1", "PYTHONDEVMODE": "1"},
+            "justMyCode": true
+        }
+    ]
+}
