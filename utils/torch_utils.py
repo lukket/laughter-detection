@@ -92,7 +92,7 @@ def save_checkpoint(state, is_best, checkpoint):
 		shutil.copyfile(filepath, os.path.join(checkpoint, 'best.pth.tar'))
 
 
-def load_checkpoint(checkpoint, model, optimizer=None):
+def load_checkpoint(checkpoint, model, optimizer=None, map_location=None):
 	"""Loads model parameters (state_dict) from file_path. If optimizer is provided, loads state_dict of
 	optimizer assuming it is present in checkpoint.
 	Args:
@@ -106,7 +106,7 @@ def load_checkpoint(checkpoint, model, optimizer=None):
 		raise ("File doesn't exist {}".format(checkpoint))
 	else:
 		print("Loading checkpoint at:", checkpoint)
-	checkpoint = torch.load(checkpoint)
+	checkpoint = torch.load(checkpoint, map_location=map_location)
 	model.load_state_dict(checkpoint['state_dict'])
 
 	if optimizer:

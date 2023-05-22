@@ -47,7 +47,7 @@ feature_fn = config['feature_fn']
 model.set_device(device)
 
 if os.path.exists(model_path):
-    torch_utils.load_checkpoint(model_path+'/best.pth.tar', model)
+    torch_utils.load_checkpoint(model_path+'/best.pth.tar', model, map_location=device)
     model.eval()
 else:
     raise Exception(f"Model checkpoint not found at {model_path}")
@@ -61,7 +61,7 @@ collate_fn=partial(audio_utils.pad_sequences_with_labels,
                         expand_channel_dim=config['expand_channel_dim'])
 
 inference_generator = torch.utils.data.DataLoader(
-    inference_dataset, num_workers=4, batch_size=8, shuffle=False, collate_fn=collate_fn)
+    inference_dataset, num_workers=0, batch_size=8, shuffle=False, collate_fn=collate_fn)
 
 
 ##### Make Predictions
